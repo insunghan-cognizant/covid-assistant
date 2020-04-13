@@ -97,9 +97,12 @@ app.get('/api/session', function(req, res) {
     },
     function(error, response) {
       if (error) {
+        console.log("res.body="+response.body)
         return res.send(error);
+
       } else {
-        return res.send(response);
+        // console.log("error.message=" + error.message)
+        return res.send(response)
       }
     }
   );

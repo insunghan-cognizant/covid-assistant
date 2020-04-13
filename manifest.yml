@@ -1,6 +1,10 @@
 applications:
-- name: covid-assistant-simple
-  command: npm start
-  path: .
-  memory: 256M
+- command: npm start
+  domain: null
+  host: null
   instances: 1
+  memory: 256M
+  name: covid-assistant-simple
+  path: .
+  routes:
+  - route: covid-simple.us-south.cf.appdomain.cloud
