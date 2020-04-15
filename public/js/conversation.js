@@ -276,7 +276,7 @@ var ConversationPanel = (function () {
   // convert response text (json formatted or plain) to plain text
   function getTextToDisplay(text) {
     var parsedObj;
-    var textToDisplay;
+    var textToDisplay = "";
 
     try {
       parsedObj = JSON.parse(text)
@@ -289,13 +289,15 @@ var ConversationPanel = (function () {
         var city = parsedObj.summary[i].physical_address[0].city;
         var state = parsedObj.summary[i].physical_address[0].state_province;
         var postalCode = parsedObj.summary[i].physical_address[0].postal_code;
+        var description = parsedObj.summary[i].description
 
         //.replace removes spaces from the names so that they can be used on the url
         var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
           
         var url = 'https://maps.google.com/?q=' + term;
-
-        textToDisplay += name + "|" + phone + "|" + address + "|" + city + "|" + state + " " + postalCode + "|"  + url + "<hr/>";
+        
+        textToDisplay += name + "<br/>" + phone + "<br/>" + address + ", " + city + ", " + state + " " + postalCode + "<a href='"  + url + "' target='_blank'> map" + "</a>"
+                       + "<hr/>";
      
       }
     } catch (e) {
@@ -364,4 +366,5 @@ var ConversationPanel = (function () {
       Common.fireEvent(inputBox, 'input');
     }
   }
+
 }());
