@@ -56,6 +56,8 @@ var PayloadPanel = (function() {
     Api.setResponsePayload = function(newPayload) {
       currentResponsePayloadSetter.call(Api, newPayload);
       displayPayload(settings.payloadTypes.response);
+      // eslint-disable-next-line no-console
+      console.log(settings.payloadTypes.response);
     };
   }
 
