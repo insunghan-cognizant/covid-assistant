@@ -154,6 +154,9 @@ div {
   position: absolute;
 }
 
+.stateSearch {
+  display: inline-block;
+}
 
 .from-user .message-inner:before {
   z-index: -2;

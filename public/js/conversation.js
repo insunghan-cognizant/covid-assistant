@@ -21,7 +21,8 @@ var ConversationPanel = (function () {
   return {
     init: init,
     inputKeyDown: inputKeyDown,
-    sendMessage: sendMessage
+    sendMessage: sendMessage,
+    askTestingLocationQuestion: askTestingLocationQuestion,
   };
 
   // Initialize the module
@@ -248,7 +249,7 @@ var ConversationPanel = (function () {
         innerhtml: title + description + img
       });
     } else if (gen.response_type === 'text') {
-      var textToDisplay = getTextToDisplay(gen.text)
+      var textToDisplay = getTextToDisplay(gen.text);
       responses.push({
         type: gen.response_type,
         innerhtml: textToDisplay
@@ -273,13 +274,22 @@ var ConversationPanel = (function () {
     }
   }
 
+  // get the innerText from the clickable search buttons and send a question to Watson
+  function askTestingLocationQuestion(event) {
+    const stateName = event.target.innerText;
+   
+    const questionToSend = `what are testing locations for the state of ${stateName}?`;
+
+    sendMessage(questionToSend);
+  }
+
   // convert response text (json formatted or plain) to plain text
   function getTextToDisplay(text) {
     var parsedObj;
-    var textToDisplay = "";
+    var textToDisplay = '';
 
     try {
-      parsedObj = JSON.parse(text)
+      parsedObj = JSON.parse(text);
    
       //use the lenght of the summary array to make each address display so that the google links can be created
       for (var i = 0; i < parsedObj.summary.length; i++) {
@@ -289,21 +299,21 @@ var ConversationPanel = (function () {
         var city = parsedObj.summary[i].physical_address[0].city;
         var state = parsedObj.summary[i].physical_address[0].state_province;
         var postalCode = parsedObj.summary[i].physical_address[0].postal_code;
-        var description = parsedObj.summary[i].description
+        var description = parsedObj.summary[i].description;
 
         //.replace removes spaces from the names so that they can be used on the url
         var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
           
         var url = 'https://maps.google.com/?q=' + term;
         
-        textToDisplay += name + "<br/>" + phone + "<br/>" + address + ", " + city + ", " + state + " " + postalCode + "<a href='"  + url + "' target='_blank'> map" + "</a>"
-                       + "<hr/>";
+        textToDisplay += name + '<br/>' + phone + '<br/>' + address + ', ' + city + ', ' + state + ' ' + postalCode + '<a href=\''  + url + '\' target=\'_blank\'> map' + '</a>'
+                       + '<hr/>';
      
       }
     } catch (e) {
-      textToDisplay = text
+      textToDisplay = text;
     }
-    return textToDisplay
+    return textToDisplay;
   }
 
 
