@@ -59,7 +59,6 @@ var Api = (function() {
       text: text,
     };
 
-    // note use this for google address https://maps.google.com/?q=term
 
     // Built http request
     var http = new XMLHttpRequest();
@@ -67,30 +66,7 @@ var Api = (function() {
     http.setRequestHeader('Content-type', 'application/json');
     http.onreadystatechange = function() {
       if (http.readyState === XMLHttpRequest.DONE && http.status === 200 && http.responseText) {
-
         Api.setResponsePayload(http.responseText);
-        
-        //myObj is the obj that comes in the form of a string and needs to be parsed again
-        var myObj = JSON.parse(http.responseText).result.output.generic[1].text;
-        var parsedObj = JSON.parse(myObj);
-
-        //use the lenght of the summary array to make each address display so that the google links can be created
-        for (var i = 0; i < parsedObj.summary.length; i++) {
-          
-          var address = parsedObj.summary[i].physical_address[0].address_1;
-          var city = parsedObj.summary[i].physical_address[0].city;
-          var state = parsedObj.summary[i].physical_address[0].state_province;
-          var postalCode = parsedObj.summary[i].physical_address[0].postal_code;
-
-          //.replace removes spaces from the names so that they can be used on the url
-          var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
-          
-          var url = 'https://maps.google.com/?q=' + term;
-
-          // eslint-disable-next-line no-console
-          console.log(url);
-        }
-         
       } else if (http.readyState === XMLHttpRequest.DONE && http.status !== 200) {
         Api.setErrorPayload({
           'output': {

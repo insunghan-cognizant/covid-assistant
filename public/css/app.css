@@ -79,7 +79,8 @@ div {
   padding: 0.9375rem 0 0.625rem 0;
   margin: auto;
   text-align: left;
-  max-width: 25rem;
+  /* max-width: 25rem; */
+  max-width: 50rem;
   min-width: 9.375rem;
 }
 

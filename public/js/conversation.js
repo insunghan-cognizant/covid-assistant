@@ -248,9 +248,10 @@ var ConversationPanel = (function () {
         innerhtml: title + description + img
       });
     } else if (gen.response_type === 'text') {
+      var textToDisplay = getTextToDisplay(gen.text)
       responses.push({
         type: gen.response_type,
-        innerhtml: gen.text
+        innerhtml: textToDisplay
       });
     } else if (gen.response_type === 'pause') {
       responses.push({
@@ -271,6 +272,38 @@ var ConversationPanel = (function () {
       });
     }
   }
+
+  // convert response text (json formatted or plain) to plain text
+  function getTextToDisplay(text) {
+    var parsedObj;
+    var textToDisplay;
+
+    try {
+      parsedObj = JSON.parse(text)
+   
+      //use the lenght of the summary array to make each address display so that the google links can be created
+      for (var i = 0; i < parsedObj.summary.length; i++) {
+        var name = parsedObj.summary[i].name;
+        var phone = parsedObj.summary[i].phones[0].number;
+        var address = parsedObj.summary[i].physical_address[0].address_1;
+        var city = parsedObj.summary[i].physical_address[0].city;
+        var state = parsedObj.summary[i].physical_address[0].state_province;
+        var postalCode = parsedObj.summary[i].physical_address[0].postal_code;
+
+        //.replace removes spaces from the names so that they can be used on the url
+        var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
+          
+        var url = 'https://maps.google.com/?q=' + term;
+
+        textToDisplay += name + "|" + phone + "|" + address + "|" + city + "|" + state + " " + postalCode + "|"  + url + "<hr/>";
+     
+      }
+    } catch (e) {
+      textToDisplay = text
+    }
+    return textToDisplay
+  }
+
 
   // Constructs new generic elements from a message payload
   function buildMessageDomElements(newPayload, isUser) {
