@@ -17,20 +17,17 @@
     border: 0; border-top: 1px solid #45a29e;
     margin: 1em 0; padding: 0; 
   }
+
+  .top-bar {
+    margin: 4rem;
+  }
   
   #title {
-    font-family: 'Manrope', sans-serif;
     font-family: 'Oswald', sans-serif;
     color: #66fcf1;
-    stroke: white;
-    font-size: 80px;
+    font-size: 7vw;
     display: flex;
     flex-direction: column;
-    height: 10%;
-    padding: 0.9375rem 0 0.625rem 0;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
     text-align: center;
   }
   div {
