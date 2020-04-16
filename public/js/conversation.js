@@ -24,6 +24,7 @@ var ConversationPanel = (function () {
     sendMessage: sendMessage,
     askTestingLocationQuestion: askTestingLocationQuestion,
     askQuestion: askQuestion,
+    askNearMeQuestion: askNearMeQuestion
   };
 
   // Initialize the module
@@ -284,10 +285,20 @@ var ConversationPanel = (function () {
     sendMessage(questionToSend);
   }
 
+  function askNearMeQuestion(event) {
+    
+    // TODO: replace lng and lat
+    var lng = -84.474203
+    var lat = 33.8443285
+    const questionToSend = `Cases in longitude ${lng} and latitude ${lat}`;
+
+    sendMessage(questionToSend);
+  }
+
   // get the innerText from the clickable search buttons and send a question to Watson
   function askQuestion(event) {
     const questionToSend = event.target.innerText;
-   
+    
     sendMessage(questionToSend);
   }
 
@@ -299,26 +310,41 @@ var ConversationPanel = (function () {
     try {
       parsedObj = JSON.parse(text);
    
+      if( parsedObj.type == "testing-location") {
       //use the lenght of the summary array to make each address display so that the google links can be created
-      for (var i = 0; i < parsedObj.summary.length; i++) {
-        var name = parsedObj.summary[i].name;
-        var phone = parsedObj.summary[i].phones[0].number;
-        var address = parsedObj.summary[i].physical_address[0].address_1;
-        var city = parsedObj.summary[i].physical_address[0].city;
-        var state = parsedObj.summary[i].physical_address[0].state_province;
-        var postalCode = parsedObj.summary[i].physical_address[0].postal_code;
-        var description = parsedObj.summary[i].description;
+        for (var i = 0; i < parsedObj.summary.length; i++) {
+          var name = parsedObj.summary[i].name;
+          var phone = parsedObj.summary[i].phones[0].number;
+          var address = parsedObj.summary[i].physical_address[0].address_1;
+          var city = parsedObj.summary[i].physical_address[0].city;
+          var state = parsedObj.summary[i].physical_address[0].state_province;
+          var postalCode = parsedObj.summary[i].physical_address[0].postal_code;
+          var description = parsedObj.summary[i].description;
 
-        //.replace removes spaces from the names so that they can be used on the url
-        var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
+          //.replace removes spaces from the names so that they can be used on the url
+          var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
           
-        var url = 'https://maps.google.com/?q=' + term;
+          var url = 'https://maps.google.com/?q=' + term;
         
-        textToDisplay += '<a href=\''  + url + '\' target=\'_blank\'>' + name + '</a>' + ' | ' + phone + ' | ' 
+          textToDisplay += '<a href=\''  + url + '\' target=\'_blank\'>' + name + '</a>' + ' | ' + phone + ' | ' 
                       + address + ' ' + city + ', ' + state + ' ' + postalCode   
                       + '<hr/>'
      
+        } 
+      } else if( parsedObj.type == "cases-coordinate") {
+        for (var i = 0; i < parsedObj.summary.data.length; i++) {
+          var county = parsedObj.summary.data[i].name
+          var cases = parsedObj.summary.data[i].latestData.cases
+          var deaths = parsedObj.summary.data[i].latestData.deaths
+          var recovered = parsedObj.summary.data[i].latestData.recovered
+          var date = parsedObj.summary.data[i].latestData.date
+        
+          textToDisplay += county +': ' + cases + ' cases, ' + deaths + ' deaths, ' + recovered + ' recovered, as of ' + date + '<hr/>'
+     
+        } 
+      
       }
+
     } catch (e) {
       textToDisplay = text;
     }
