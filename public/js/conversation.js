@@ -278,7 +278,7 @@ var ConversationPanel = (function () {
   function askTestingLocationQuestion(event) {
     const stateName = event.target.innerText;
    
-    const questionToSend = `what are testing locations for the state of ${stateName}?`;
+    const questionToSend = `What are testing locations for the state of ${stateName}?`;
 
     sendMessage(questionToSend);
   }
@@ -306,8 +306,9 @@ var ConversationPanel = (function () {
           
         var url = 'https://maps.google.com/?q=' + term;
         
-        textToDisplay += name + '<br/>' + phone + '<br/>' + address + ', ' + city + ', ' + state + ' ' + postalCode + '<a href=\''  + url + '\' target=\'_blank\'> map' + '</a>'
-                       + '<hr/>';
+        textToDisplay += '<a href=\''  + url + '\' target=\'_blank\'>' + name + '</a>' + ' | ' + phone + ' | ' 
+                      + address + ' ' + city + ', ' + state + ' ' + postalCode   
+                      + '<hr/>'
      
       }
     } catch (e) {

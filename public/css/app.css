@@ -80,7 +80,7 @@ div {
   margin: auto;
   text-align: left;
   /* max-width: 25rem; */
-  max-width: 50rem;
+  max-width: 65rem;
   min-width: 9.375rem;
 }
 
@@ -156,6 +156,10 @@ div {
 
 .stateSearch {
   display: inline-block;
+}
+
+.stateSearch:hover {
+  text-decoration: underline;
 }
 
 .from-user .message-inner:before {
