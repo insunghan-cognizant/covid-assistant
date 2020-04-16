@@ -288,11 +288,33 @@ var ConversationPanel = (function () {
   function askNearMeQuestion(event) {
     
     // TODO: replace lng and lat
-    var lng = -84.474203
-    var lat = 33.8443285
-    const questionToSend = `Cases in longitude ${lng} and latitude ${lat}`;
+    var lng;
+    var lat;
+    var coords;
+    
 
-    sendMessage(questionToSend);
+    if(navigator.geolocation){
+      //if geolocation successful
+      const success=(pos)=>{
+        coords={
+          lat : pos.coords.latitude,
+          lng : pos.coords.longitude
+        }; 
+        lat=coords.lat;
+        lng=coords.lng;
+        //create and send msg
+        const questionToSend = `Cases in longitude ${lng} and latitude ${lat}`;
+        sendMessage(questionToSend);
+      };
+      const error=(err)=>{
+        console.log(err,"did not get coords");
+        //get watson to ask for state name or zipcode
+      };            
+      navigator.geolocation.getCurrentPosition(success,error); 
+    }   
+    else{      
+      //get Watson to ask for state name/zipcode and run appropriate query
+    }
   }
 
   // get the innerText from the clickable search buttons and send a question to Watson
