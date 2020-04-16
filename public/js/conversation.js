@@ -23,6 +23,7 @@ var ConversationPanel = (function () {
     inputKeyDown: inputKeyDown,
     sendMessage: sendMessage,
     askTestingLocationQuestion: askTestingLocationQuestion,
+    askQuestion: askQuestion,
   };
 
   // Initialize the module
@@ -280,6 +281,13 @@ var ConversationPanel = (function () {
    
     const questionToSend = `What are testing locations for the state of ${stateName}?`;
 
+    sendMessage(questionToSend);
+  }
+
+  // get the innerText from the clickable search buttons and send a question to Watson
+  function askQuestion(event) {
+    const questionToSend = event.target.innerText;
+   
     sendMessage(questionToSend);
   }
 
