@@ -8,12 +8,18 @@
   <meta property="og:title" content="Conversation Chat Simple" />
   <meta property="og:description" content="Sample application that shows how to use the Watson Assistant API to identify user intents" />
   <link rel="shortcut icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Oswald:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css">
+  
 </head>
 
 <body>
   <div id="contentParent" class="responsive-columns-wrapper">
     <div id="chat-column-holder" class="responsive-column content-column">
+      <div class="top-bar">
+      <div id="title">COVID ASSISTANT</div>
+      </div>
       <div class="chat-column">
         <div id="scrollingChat"></div>
         <p class="user-typing" id="user-typing-field"></p>
@@ -21,18 +27,22 @@
           <input id="textInput" class="input responsive-column" placeholder="Type something" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)"
             autofocus>
         </label>
-        <div>
-          Testing locations : <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Arizona</p>  
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">California</p> 
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Delaware</p>
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Florida</p>
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Massachusetts</p>
-                            <!-- | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Nevada</p> -->
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">New York</p>
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Pennsylvania</p>
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Texas</p>
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Utah</p>
-                            | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Washington</p>
+      </div>
+
+      <hr>
+
+      <div class="states">
+        Testing locations : <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Arizona</p>  
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">California</p> 
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Delaware</p>
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Florida</p>
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Massachusetts</p>
+                          <!-- | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Nevada</p> -->
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">New York</p>
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Pennsylvania</p>
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Texas</p>
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Utah</p>
+                          | <p class="stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Washington</p>
 
         </div>
         <div>
@@ -54,7 +64,7 @@
           <a target="_blank" rel="noreferrer noopener" href="https://watson-developer-cloud.github.io/terms?name=Watson%20Assistant%20Demo">
             Terms of Use
           </a>
-          <div>Modified by Insung Han</div>
+          <div>Modified by Mighty Morphin Power Rangers Team!</div>
         </div>
       </div>
     </div>
