@@ -19,6 +19,7 @@
     border-color: #45a29e;
     border-top-style: solid;
     margin-top: 0.5rem;
+    padding-top: 2vw;
     background-color: rgba(0, 0, 0, 0.534);
   }
 
@@ -37,13 +38,6 @@
     height: 7vw;
     padding-top: 3vw;
     padding-bottom: 7vw;
-
-    /* font-family: 'Oswald', sans-serif;
-    color: #66fcf1;
-    font-size: 7vw;
-    display: flex;
-    flex-direction: column;
-    text-align: center; */
   }
   div {
     word-wrap: break-word;
@@ -62,7 +56,7 @@
     width: 3.125rem;
     height: 3.125rem;
     border-radius: 1.5625rem;
-    background: #AB72F8;
+    background: #66fcf1;
     top: 0.3125rem;
     right: 0.3125rem;
     line-height: 3.125rem;
@@ -125,7 +119,7 @@
   .user-typing {
     flex: 0;
     border: none;
-    color: #8d25e8;
+    color: #66fcf1;
     margin: 0.75rem;
     font-size: 15;
   }
@@ -172,7 +166,7 @@
     color: #fff;
     letter-spacing: 0.015rem;
     line-height: 1.3125rem;
-    background: rgb(69, 69, 255);
+    background: #45a296;
     border-radius: 1.25rem;
     border-bottom-right-radius: 0;
     text-align: left;
@@ -193,6 +187,22 @@
   
   .stateSearch {
     display: inline-block;
+    cursor: pointer;
+
+    /* position: relative;
+    font-size: 1rem;
+    color: #fff;
+    letter-spacing: 0.015rem;
+    line-height: 1.3125rem;
+    border-radius: 1.25rem;
+    border-bottom-right-radius: 0;
+    text-align: left;
+    margin-left: 2.5rem;
+    min-width: 2.5rem; */
+    
+    border: 0.0625rem solid #66fcf1;
+    padding: 0.7vw;
+    border-radius: 50px;
   }
   
   /* .stateSearch:hover {
@@ -247,7 +257,7 @@
   
   .from-watson.latest.top p:before {
     content: ".";
-    color: #9855D4;
+    color: #00B4A0;
     background-image: url("../img/marker_image.png");
     background-size: 0.3125rem 1.3125rem;
     position: absolute;
@@ -370,7 +380,7 @@
   }
   
   .boolean, .null, .number {
-    color: #CE8EFF;
+    color: #66fcf1;
   }
   
   .key {
@@ -502,13 +512,13 @@
   }
   
   .options-list {
-    color: #8d25e8;
+    color: #66fcf1;
     cursor: pointer;
   }
   
   .options-button {
     color: white;
-    background-color: #8d25e8;
+    background-color: #66fcf1;
     border-radius: 6px;
     padding-bottom: 4px;
     padding-top: 4px;
@@ -517,5 +527,9 @@
     margin: 3px;
     cursor: pointer;
     display: inline-block;
+  }
+
+  #termlink {
+    color: #00B4A0;
   }
   
