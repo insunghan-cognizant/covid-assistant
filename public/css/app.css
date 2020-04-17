@@ -5,21 +5,21 @@
   }
   
   body {
-    background-color: #1f2833;
-    /* background-image: url("engin-akyurt-fboaVuIdgzU-unsplash.jpg"); */
+    background-color: #1f2833b6;
     background-image: url("fusion-medical-animation-EAgGqOiDDMg-unsplash.jpg");
-    /* background-image: url("backgroundimg1.jpg"); */
-    background-size: 100vw;
+    background-blend-mode: overlay;
     background-repeat: no-repeat; 
+    background-size: cover;
     font-family: 'Manrope', sans-serif;
     margin: 0;
     padding: 0;
   }
 
-  hr {
-    display: block; height: 1px;
-    border: 0; border-top: 1px solid #45a29e;
-    margin: 1em 0; padding: 0; 
+  #footer {
+    border-color: #45a29e;
+    border-top-style: solid;
+    margin-top: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.534);
   }
 
   .top-bar {
@@ -43,11 +43,6 @@
   .disclaimer {
     font-size: 0.75rem;
     padding: 1rem;
-    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
-  }
-
-  .states{
-    text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
   }
   
   #view-change-button {
@@ -112,7 +107,7 @@
     /* max-width: 25rem; */
     max-width: 65rem;
     min-width: 9.375rem;
-    background-color: rgba(167, 167, 167, 0.521);
+    background-color: rgba(255, 255, 255, 0.829);
     border-radius: 25px;
   }
   
@@ -189,9 +184,9 @@
     display: inline-block;
   }
   
-  .stateSearch:hover {
+  /* .stateSearch:hover {
     text-decoration: underline;
-  }
+  } */
   
   .from-user .message-inner:before {
     z-index: -2;
@@ -214,20 +209,13 @@
   
   .from-watson, 
   .message-inner {
-    /* position: relative;
-    border-radius: 1.5625rem;
-    font-size: 1rem;
-    color: #B5B5B5;
-    letter-spacing: 0.015rem;
-    line-height: 1.3125rem; */
-  
     margin: 5px;
     position: relative;
     font-size: 1rem;
     color: rgb(10, 10, 10);
     letter-spacing: 0.015rem;
     line-height: 1.3125rem;
-    background: rgb(215, 215, 228);
+    background: rgb(143, 143, 145);
     border-radius: 1.25rem;
     border-bottom-left-radius: 0;
     text-align: left;
@@ -263,23 +251,24 @@
     border: none;
     outline: none;
     background: transparent;
-    font-size: 2rem;
-    color: white;
+    font-size: 1.5rem;
+    color: rgb(0, 0, 0);
     letter-spacing: 0.015rem;
     line-height: 1.3125rem;
     height: 2.5rem;
     max-width: 100%;
-    margin-bottom: -0.125rem;  
-    text-align: center;
+    margin-bottom: -0.125rem;
+    text-align: left;
+    margin-left: 1.5rem;
     font-family: 'Manrope', sans-serif;
   }
   
-  #textInput.underline {
+  /* #textInput.underline {
     border-bottom: 2px solid #00B4A0;
-  }
+  } */
   
   ::-webkit-input-placeholder {
-    color: #B5B5B5;
+    color: rgb(80, 80, 80);
   }
   
   ::-moz-placeholder {
@@ -302,10 +291,11 @@
   
   .inputOutline {
     display: block;
-    border-bottom: 0.0625rem solid #aeaeae;
-    margin-left: 4.5rem;
-    margin-right: 4.5rem; 
+    border: 0.0625rem solid #aeaeae;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem; 
     margin-bottom: 1.0rem;
+    border-radius: 50px;
   }
   
   #textInputDummy {
