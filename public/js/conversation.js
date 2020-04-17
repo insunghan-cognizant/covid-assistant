@@ -17,6 +17,8 @@ var ConversationPanel = (function () {
     }
   };
 
+  var testCoords;
+
   // Publicly accessible methods defined
   return {
     init: init,
@@ -24,7 +26,8 @@ var ConversationPanel = (function () {
     sendMessage: sendMessage,
     askTestingLocationQuestion: askTestingLocationQuestion,
     askQuestion: askQuestion,
-    askNearMeQuestion: askNearMeQuestion
+    askNearMeQuestion: askNearMeQuestion,
+    checkSymptoms: checkSymptoms
   };
 
   // Initialize the module
@@ -121,6 +124,25 @@ var ConversationPanel = (function () {
 
     // Trigger the input event once to set up the input box and dummy element
     Common.fireEvent(input, 'input');
+
+
+
+    //get local coords
+    if(navigator.geolocation){
+      //if geolocation successful
+      const success=(pos)=>{
+        testCoords={
+          lat : pos.coords.latitude,
+          lng : pos.coords.longitude
+        }; 
+      };
+      const error=(err)=>{
+        
+        //maybe nothing, or figure out a different way to get coords
+      };            
+      navigator.geolocation.getCurrentPosition(success,error); 
+    }  
+
   }
 
   // Display a user or Watson message that has just been sent/received
@@ -293,28 +315,41 @@ var ConversationPanel = (function () {
     var coords;
     
 
-    if(navigator.geolocation){
-      //if geolocation successful
-      const success=(pos)=>{
-        coords={
-          lat : pos.coords.latitude,
-          lng : pos.coords.longitude
-        }; 
-        lat=coords.lat;
-        lng=coords.lng;
-        //create and send msg
-        const questionToSend = `Cases in longitude ${lng} and latitude ${lat}`;
-        sendMessage(questionToSend);
-      };
-      const error=(err)=>{
-        console.log(err,"did not get coords");
-        //get watson to ask for state name or zipcode
-      };            
-      navigator.geolocation.getCurrentPosition(success,error); 
-    }   
-    else{      
-      //get Watson to ask for state name/zipcode and run appropriate query
-    }
+    // if(navigator.geolocation){
+    //   //if geolocation successful
+    //   const success=(pos)=>{
+    //     coords={
+    //       lat : pos.coords.latitude,
+    //       lng : pos.coords.longitude
+    //     }; 
+    //     lat=coords.lat;
+    //     lng=coords.lng;
+    //     //create and send msg
+    //     const questionToSend = `Cases in longitude ${lng} and latitude ${lat}`;
+    //     sendMessage(questionToSend);
+    //   };
+    //   const error=(err)=>{
+        
+    //     //get watson to ask for state name or zipcode
+    //   };            
+    //   navigator.geolocation.getCurrentPosition(success,error); 
+    // }   
+    // else{      
+    //   //get Watson to ask for state name/zipcode and run appropriate query
+    // }
+
+
+    const questionToSend = `Cases in longitude ${testCoords.lng} and latitude ${testCoords.lat}`;
+    sendMessage(questionToSend);
+
+    const questionToSend2 = `Test second query`;
+    sendMessage(questionToSend2);
+  }
+
+
+  function checkSymptoms(event){
+
+
   }
 
   // get the innerText from the clickable search buttons and send a question to Watson
