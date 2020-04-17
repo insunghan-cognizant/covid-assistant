@@ -233,10 +233,10 @@
     margin: 5px;
     position: relative;
     font-size: 1rem;
-    color: rgb(10, 10, 10);
+    color: white;
     letter-spacing: 0.015rem;
     line-height: 1.3125rem;
-    background: rgb(143, 143, 145);
+    background: #1F2833;
     border-radius: 1.25rem;
     border-bottom-left-radius: 0;
     text-align: left;
@@ -246,8 +246,12 @@
   }
   
   .from-watson.latest .message-inner {
-    color: rgb(4, 8, 8);
-    font-size: 18px;
+    color: white;
+    font-size: 1.1rem;
+  }
+
+  a {
+    color: #45A29E;
   }
   
   .from-watson p {
@@ -312,7 +316,7 @@
   
   .inputOutline {
     display: block;
-    border: 0.0625rem solid #aeaeae;
+    border: 0.0625rem solid #1F2833;
     margin-left: 2.5rem;
     margin-right: 2.5rem; 
     margin-bottom: 1.0rem;
