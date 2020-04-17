@@ -23,16 +23,27 @@
   }
 
   .top-bar {
-    margin: 4rem;
+    font-size: 1rem;
   }
   
   #title {
     font-family: 'Oswald', sans-serif;
     color: #66fcf1;
-    font-size: 7vw;
     display: flex;
     flex-direction: column;
     text-align: center;
+    font-size: 7vw;
+    width: 100vw;
+    height: 7vw;
+    padding-top: 3vw;
+    padding-bottom: 7vw;
+
+    /* font-family: 'Oswald', sans-serif;
+    color: #66fcf1;
+    font-size: 7vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center; */
   }
   div {
     word-wrap: break-word;
