@@ -426,11 +426,18 @@ var ConversationPanel = (function () {
   // Handles the submission of input
   function inputKeyDown(event, inputBox) {
     // Submit on enter key, dis-allowing blank messages
-    if (event.keyCode === 13 && inputBox.value) {
+    if (event.keyCode === 13 && !hasWhiteSpacesOnly(inputBox.value)) {
       sendMessage(inputBox.value);
       // Clear input box for further messages
       inputBox.value = '';
       Common.fireEvent(inputBox, 'input');
+    }
+  }
+  
+  //checks to make sure not only whitespaces are being send to watson
+  function hasWhiteSpacesOnly(stringInput) {
+    if (!stringInput.replace(/\s/g, '').length) {
+      return true;
     }
   }
 
