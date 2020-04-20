@@ -180,11 +180,6 @@
     padding: 0 0.9375rem;
   }
   
-  .from-user .message-inner:before, .from-user .message-inner:after {
-    content: "";
-    position: absolute;
-  }
-  
   .stateSearch {
     display: inline-block;
     cursor: pointer;
