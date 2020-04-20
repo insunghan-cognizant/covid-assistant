@@ -10,6 +10,7 @@
   <link rel="shortcut icon" href="favicon.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Oswald:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/app.css">
   
 </head>
@@ -36,7 +37,7 @@
       <div id="footer">
 
       <div class="states">
-        Testing location Information by State: <br>
+        Testing location Information by State: <div style="height:0.5rem;"><br></div>
          <p class="hvr-grow-shadow stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Arizona</p>  
          <p class="hvr-grow-shadow stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Delaware</p>
          <p class="hvr-grow-shadow stateSearch" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">California</p> 
@@ -49,11 +50,11 @@
          <p class="stateSearch hvr-grow-shadow" onclick="ConversationPanel.askTestingLocationQuestion(event, this)">Washington</p>
       </div>
       <div>
-        <p class="states" class="stateSearch" onclick="ConversationPanel.askNearMeQuestion(event, this)">How many cases near me</p>
+        <p class="stateSearch hvr-icon-fade" onclick="ConversationPanel.askNearMeQuestion(event, this)">How many cases near me <i class="fa fa-map-marker fa-fw hvr-icon"></i></p>
       </div>
-      <div>
+      <!-- <div>
         <p class="states" class="stateSearch" onclick="ConversationPanel.askQuestion(event, this)">How many cases in the area of zip code 44106</p>
-      </div>
+      </div> -->
       <div class="disclaimer">
         By using this application, you agree to the&nbsp;
         <a id="termlink" target="_blank" rel="noreferrer noopener" href="https://watson-developer-cloud.github.io/terms?name=Watson%20Assistant%20Demo">
