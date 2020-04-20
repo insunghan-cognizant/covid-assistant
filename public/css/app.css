@@ -159,6 +159,10 @@
   .from-user {
     text-align: right;
   }
+
+  .chatbox {
+    margin: 0.5rem;
+  }
   
   .from-user .message-inner {
     position: relative;
