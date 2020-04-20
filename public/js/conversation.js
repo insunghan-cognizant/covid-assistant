@@ -342,8 +342,8 @@ var ConversationPanel = (function () {
     const questionToSend = `Cases in longitude ${testCoords.lng} and latitude ${testCoords.lat}`;
     sendMessage(questionToSend);
 
-    const questionToSend2 = `Test second query`;
-    sendMessage(questionToSend2);
+    // const questionToSend2 = `Test second query`;
+    // sendMessage(questionToSend2);
   }
 
 
