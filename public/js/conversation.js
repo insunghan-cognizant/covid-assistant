@@ -17,6 +17,8 @@ var ConversationPanel = (function () {
     }
   };
 
+  var testCoords;
+
   // Publicly accessible methods defined
   return {
     init: init,
@@ -24,7 +26,8 @@ var ConversationPanel = (function () {
     sendMessage: sendMessage,
     askTestingLocationQuestion: askTestingLocationQuestion,
     askQuestion: askQuestion,
-    askNearMeQuestion: askNearMeQuestion
+    askNearMeQuestion: askNearMeQuestion,
+    checkSymptoms: checkSymptoms
   };
 
   // Initialize the module
@@ -121,6 +124,25 @@ var ConversationPanel = (function () {
 
     // Trigger the input event once to set up the input box and dummy element
     Common.fireEvent(input, 'input');
+
+
+
+    //get local coords
+    if(navigator.geolocation){
+      //if geolocation successful
+      const success=(pos)=>{
+        testCoords={
+          lat : pos.coords.latitude,
+          lng : pos.coords.longitude
+        }; 
+      };
+      const error=(err)=>{
+        
+        //maybe nothing, or figure out a different way to get coords
+      };            
+      navigator.geolocation.getCurrentPosition(success,error); 
+    }  
+
   }
 
   // Display a user or Watson message that has just been sent/received
@@ -293,28 +315,41 @@ var ConversationPanel = (function () {
     var coords;
     
 
-    if(navigator.geolocation){
-      //if geolocation successful
-      const success=(pos)=>{
-        coords={
-          lat : pos.coords.latitude,
-          lng : pos.coords.longitude
-        }; 
-        lat=coords.lat;
-        lng=coords.lng;
-        //create and send msg
-        const questionToSend = `Cases in longitude ${lng} and latitude ${lat}`;
-        sendMessage(questionToSend);
-      };
-      const error=(err)=>{
-        console.log(err,"did not get coords");
-        //get watson to ask for state name or zipcode
-      };            
-      navigator.geolocation.getCurrentPosition(success,error); 
-    }   
-    else{      
-      //get Watson to ask for state name/zipcode and run appropriate query
-    }
+    // if(navigator.geolocation){
+    //   //if geolocation successful
+    //   const success=(pos)=>{
+    //     coords={
+    //       lat : pos.coords.latitude,
+    //       lng : pos.coords.longitude
+    //     }; 
+    //     lat=coords.lat;
+    //     lng=coords.lng;
+    //     //create and send msg
+    //     const questionToSend = `Cases in longitude ${lng} and latitude ${lat}`;
+    //     sendMessage(questionToSend);
+    //   };
+    //   const error=(err)=>{
+        
+    //     //get watson to ask for state name or zipcode
+    //   };            
+    //   navigator.geolocation.getCurrentPosition(success,error); 
+    // }   
+    // else{      
+    //   //get Watson to ask for state name/zipcode and run appropriate query
+    // }
+
+
+    const questionToSend = `Cases in longitude ${testCoords.lng} and latitude ${testCoords.lat}`;
+    sendMessage(questionToSend);
+
+    const questionToSend2 = `Test second query`;
+    sendMessage(questionToSend2);
+  }
+
+
+  function checkSymptoms(event){
+
+
   }
 
   // get the innerText from the clickable search buttons and send a question to Watson
@@ -364,6 +399,24 @@ var ConversationPanel = (function () {
           textToDisplay += county +': ' + cases + ' cases, ' + deaths + ' deaths, ' + recovered + ' recovered, as of ' + date + '<hr/>'
      
         } 
+        
+      } else if( parsedObj.type == "cases-county") {
+        var state = parsedObj.state;
+        if( state.length <= 2 ) {
+          state = abbrState(state, "name")
+        }
+        for (var i = 0; i < parsedObj.summary.data.length; i++) {
+          var id = parsedObj.summary.data[i].id;
+          var county = parsedObj.summary.data[i].name
+          var cases = parsedObj.summary.data[i].latestData.cases
+          var deaths = parsedObj.summary.data[i].latestData.deaths
+          var recovered = parsedObj.summary.data[i].latestData.recovered
+          var date = parsedObj.summary.data[i].latestData.date
+        
+          if( id.includes(state.toLowerCase()) ) {
+            textToDisplay = cases + ' cases, ' + deaths + ' deaths, ' + recovered + ' recovered, as of ' + date 
+          }
+        } 
       
       }
 
@@ -373,6 +426,78 @@ var ConversationPanel = (function () {
     return textToDisplay;
   }
 
+
+  function abbrState(input, to){
+    
+    var states = [
+        ['Arizona', 'AZ'],
+        ['Alabama', 'AL'],
+        ['Alaska', 'AK'],
+        ['Arkansas', 'AR'],
+        ['California', 'CA'],
+        ['Colorado', 'CO'],
+        ['Connecticut', 'CT'],
+        ['Delaware', 'DE'],
+        ['Florida', 'FL'],
+        ['Georgia', 'GA'],
+        ['Hawaii', 'HI'],
+        ['Idaho', 'ID'],
+        ['Illinois', 'IL'],
+        ['Indiana', 'IN'],
+        ['Iowa', 'IA'],
+        ['Kansas', 'KS'],
+        ['Kentucky', 'KY'],
+        ['Louisiana', 'LA'],
+        ['Maine', 'ME'],
+        ['Maryland', 'MD'],
+        ['Massachusetts', 'MA'],
+        ['Michigan', 'MI'],
+        ['Minnesota', 'MN'],
+        ['Mississippi', 'MS'],
+        ['Missouri', 'MO'],
+        ['Montana', 'MT'],
+        ['Nebraska', 'NE'],
+        ['Nevada', 'NV'],
+        ['New Hampshire', 'NH'],
+        ['New Jersey', 'NJ'],
+        ['New Mexico', 'NM'],
+        ['New York', 'NY'],
+        ['North Carolina', 'NC'],
+        ['North Dakota', 'ND'],
+        ['Ohio', 'OH'],
+        ['Oklahoma', 'OK'],
+        ['Oregon', 'OR'],
+        ['Pennsylvania', 'PA'],
+        ['Rhode Island', 'RI'],
+        ['South Carolina', 'SC'],
+        ['South Dakota', 'SD'],
+        ['Tennessee', 'TN'],
+        ['Texas', 'TX'],
+        ['Utah', 'UT'],
+        ['Vermont', 'VT'],
+        ['Virginia', 'VA'],
+        ['Washington', 'WA'],
+        ['West Virginia', 'WV'],
+        ['Wisconsin', 'WI'],
+        ['Wyoming', 'WY'],
+    ];
+
+    if (to == 'abbr'){
+        input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+        for(i = 0; i < states.length; i++){
+            if(states[i][0] == input){
+                return(states[i][1]);
+            }
+        }    
+    } else if (to == 'name'){
+        input = input.toUpperCase();
+        for(i = 0; i < states.length; i++){
+            if(states[i][1] == input){
+                return(states[i][0]);
+            }
+        }    
+    }
+}
 
   // Constructs new generic elements from a message payload
   function buildMessageDomElements(newPayload, isUser) {
