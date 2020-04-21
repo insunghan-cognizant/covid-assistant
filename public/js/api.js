@@ -137,12 +137,12 @@ var Api = (function() {
     };
 
     var params = JSON.stringify(payloadToWatson);
-    var paramsNearMe = JSON.stringify(payloadToDisplay);
+    var paramsDisplay = JSON.stringify(payloadToDisplay);
 
     // Stored in variable (publicly visible through Api.getRequestPayload)
     // to be used throughout the application
     if (Object.getOwnPropertyNames(payloadToWatson).length !== 0) {
-      Api.setRequestPayload(paramsNearMe);
+      Api.setRequestPayload(paramsDisplay);
     }
 
     // Send request
