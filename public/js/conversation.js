@@ -340,7 +340,9 @@ var ConversationPanel = (function () {
 
 
     const questionToSend = `Cases in longitude ${testCoords.lng} and latitude ${testCoords.lat}`;
-    sendMessage(questionToSend);
+    const questionToDisplay = "How many cases near me";
+    Api.sendRequestAndDisplay(questionToSend, questionToDisplay);
+    // sendMessage(questionToSend);
 
     // const questionToSend2 = `Test second query`;
     // sendMessage(questionToSend2);
