@@ -418,12 +418,17 @@ var ConversationPanel = (function () {
           if( id.includes(state.toLowerCase()) ) {
             textToDisplay = cases + ' cases, ' + deaths + ' deaths, ' + recovered + ' recovered, as of ' + date 
           }
-        } 
-      
+        }      
       }
 
     } catch (e) {
-      textToDisplay = text;
+      if (text.includes('https:')) {
+        var textArray = text.split('https:');
+        var url = 'https:' + textArray[1];
+        textToDisplay = textArray[0] + '<a href=\''  + url + '\' target=\'_blank\'>' + url + '</a>';
+      } else {
+        textToDisplay = text;
+      }
     }
     return textToDisplay;
   }
