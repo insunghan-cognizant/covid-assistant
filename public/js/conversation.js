@@ -418,7 +418,14 @@ var ConversationPanel = (function () {
           if( id.includes(state.toLowerCase()) ) {
             textToDisplay = cases + ' cases, ' + deaths + ' deaths, ' + recovered + ' recovered, as of ' + date 
           }
-        }      
+        } 
+      
+      } else if (parsedObj.type === "discovery-articles") {
+        /** fucntionality to handle display of article data received from watson discover */
+        textToDisplay += `${parsedObj.watRes}`;
+        parsedObj.articles.forEach(article => {
+          textToDisplay += `<div><p>${article.title}</p> <p>${article.text}</p> <p><a href="${article.url}">Link To Article</a><p> <hr></div>`;
+        })
       }
 
     } catch (e) {
