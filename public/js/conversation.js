@@ -422,7 +422,7 @@ var ConversationPanel = (function () {
         /** fucntionality to handle display of article data received from watson discover */
         textToDisplay += `${parsedObj.watRes}`;
         parsedObj.articles.forEach(article => {
-          textToDisplay += `<div><p>${article.title}</p> <p>${article.text}</p> <p><a href="${article.url}">Link To Article</a><p> <hr></div>`;
+          textToDisplay += `<div><div class="article-title">${article.title}</div> <div>${article.text}</div> <div><a href="${article.url}">Link To Article</a><div> <hr></div>`;
         })
       }
 
