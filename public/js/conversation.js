@@ -340,7 +340,9 @@ var ConversationPanel = (function () {
 
 
     const questionToSend = `Cases in longitude ${testCoords.lng} and latitude ${testCoords.lat}`;
-    sendMessage(questionToSend);
+    const questionToDisplay = "How many cases near me";
+    Api.sendRequestAndDisplay(questionToSend, questionToDisplay);
+    // sendMessage(questionToSend);
 
     // const questionToSend2 = `Test second query`;
     // sendMessage(questionToSend2);
@@ -416,12 +418,17 @@ var ConversationPanel = (function () {
           if( id.includes(state.toLowerCase()) ) {
             textToDisplay = cases + ' cases, ' + deaths + ' deaths, ' + recovered + ' recovered, as of ' + date 
           }
-        } 
-      
+        }      
       }
 
     } catch (e) {
-      textToDisplay = text;
+      if (text.includes('https:')) {
+        var textArray = text.split('https:');
+        var url = 'https:' + textArray[1];
+        textToDisplay = textArray[0] + '<a href=\''  + url + '\' target=\'_blank\'>' + url + '</a>';
+      } else {
+        textToDisplay = text;
+      }
     }
     return textToDisplay;
   }

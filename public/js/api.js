@@ -13,6 +13,7 @@ var Api = (function() {
   return {
     sendRequest: sendRequest,
     getSessionId: getSessionId,
+    sendRequestAndDisplay: sendRequestAndDisplay,
 
     // The request/response getters/setters are defined here to prevent internal methods
     // from calling the methods without any of the callbacks that are added elsewhere.
@@ -86,6 +87,62 @@ var Api = (function() {
     // to be used throughout the application
     if (Object.getOwnPropertyNames(payloadToWatson).length !== 0) {
       Api.setRequestPayload(params);
+    }
+
+    // Send request
+    http.send(params);
+  }
+
+  // Send a message request to the server
+  function sendRequestAndDisplay(watsonText, displayText) {
+    // Build request payload
+    var payloadToWatson = {
+      session_id: sessionId
+    };
+
+    payloadToWatson.input = {
+      message_type: 'text',
+      text: watsonText,
+    };
+
+    var payloadToDisplay = {
+      session_id: sessionId
+    };
+
+    payloadToDisplay.input = {
+      message_type: 'text',
+      text: displayText,
+    };
+
+
+    // Built http request
+    var http = new XMLHttpRequest();
+    http.open('POST', messageEndpoint, true);
+    http.setRequestHeader('Content-type', 'application/json');
+    http.onreadystatechange = function() {
+      if (http.readyState === XMLHttpRequest.DONE && http.status === 200 && http.responseText) {
+        Api.setResponsePayload(http.responseText);
+      } else if (http.readyState === XMLHttpRequest.DONE && http.status !== 200) {
+        Api.setErrorPayload({
+          'output': {
+            'generic': [
+              {
+                'response_type': 'text',
+                'text': 'I\'m having trouble connecting to the server, please refresh the page'
+              }
+            ],
+          }
+        });
+      }
+    };
+
+    var params = JSON.stringify(payloadToWatson);
+    var paramsDisplay = JSON.stringify(payloadToDisplay);
+
+    // Stored in variable (publicly visible through Api.getRequestPayload)
+    // to be used throughout the application
+    if (Object.getOwnPropertyNames(payloadToWatson).length !== 0) {
+      Api.setRequestPayload(paramsDisplay);
     }
 
     // Send request
