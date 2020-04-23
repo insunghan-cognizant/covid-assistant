@@ -363,6 +363,7 @@ var ConversationPanel = (function () {
 
   // convert response text (json formatted or plain) to plain text
   function getTextToDisplay(text) {
+    console.log("start getTextToDisplay")
     var parsedObj;
     var textToDisplay = '';
 
@@ -373,22 +374,32 @@ var ConversationPanel = (function () {
       //use the lenght of the summary array to make each address display so that the google links can be created
         for (var i = 0; i < parsedObj.summary.length; i++) {
           var name = parsedObj.summary[i].name;
-          var phone = parsedObj.summary[i].phones[0].number;
-          var address = parsedObj.summary[i].physical_address[0].address_1;
-          var city = parsedObj.summary[i].physical_address[0].city;
-          var state = parsedObj.summary[i].physical_address[0].state_province;
-          var postalCode = parsedObj.summary[i].physical_address[0].postal_code;
-          var description = parsedObj.summary[i].description;
+          var phone = '';
+          var address = '';
+          var city = '';
+          var state = '';
+          var postalCode = '';
+          var description = '';
 
+          if( parsedObj.summary[i].phones.length > 0 && parsedObj.summary[i].phones[0].hasOwnProperty('number')) {
+            phone = parsedObj.summary[i].phones[0].number;
+          }
+          if( parsedObj.summary[i].physical_address.length > 0 ) {
+            address = parsedObj.summary[i].physical_address[0].address_1;
+            city = parsedObj.summary[i].physical_address[0].city;
+            state = parsedObj.summary[i].physical_address[0].state_province;
+            postalCode = parsedObj.summary[i].physical_address[0].postal_code;
+            description = parsedObj.summary[i].description;
+          }
           //.replace removes spaces from the names so that they can be used on the url
           var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
           
           var url = 'https://maps.google.com/?q=' + term;
-        
-          textToDisplay += '<a href=\''  + url + '\' target=\'_blank\'>' + name + '</a>' + ' | ' + phone + ' | ' 
-                      + address + ' ' + city + ', ' + state + ' ' + postalCode   
-                      + '<hr/>'
-     
+
+          textToDisplay += '<a href=\''  + url + '\' target=\'_blank\'>' + name + '</a>' + ' , ' + phone + ' , ' 
+                       + address + ' ' + city + ', ' + state + ' ' + postalCode   
+                   + '<hr/>'
+
         } 
       } else if( parsedObj.type == "cases-coordinate") {
         for (var i = 0; i < parsedObj.summary.data.length; i++) {
@@ -429,6 +440,7 @@ var ConversationPanel = (function () {
       }
 
     } catch (e) {
+      
       if (text.includes('https:')) {
         var textArray = text.split('https:');
         var url = 'https:' + textArray[1];
@@ -444,74 +456,74 @@ var ConversationPanel = (function () {
   function abbrState(input, to){
     
     var states = [
-        ['Arizona', 'AZ'],
-        ['Alabama', 'AL'],
-        ['Alaska', 'AK'],
-        ['Arkansas', 'AR'],
-        ['California', 'CA'],
-        ['Colorado', 'CO'],
-        ['Connecticut', 'CT'],
-        ['Delaware', 'DE'],
-        ['Florida', 'FL'],
-        ['Georgia', 'GA'],
-        ['Hawaii', 'HI'],
-        ['Idaho', 'ID'],
-        ['Illinois', 'IL'],
-        ['Indiana', 'IN'],
-        ['Iowa', 'IA'],
-        ['Kansas', 'KS'],
-        ['Kentucky', 'KY'],
-        ['Louisiana', 'LA'],
-        ['Maine', 'ME'],
-        ['Maryland', 'MD'],
-        ['Massachusetts', 'MA'],
-        ['Michigan', 'MI'],
-        ['Minnesota', 'MN'],
-        ['Mississippi', 'MS'],
-        ['Missouri', 'MO'],
-        ['Montana', 'MT'],
-        ['Nebraska', 'NE'],
-        ['Nevada', 'NV'],
-        ['New Hampshire', 'NH'],
-        ['New Jersey', 'NJ'],
-        ['New Mexico', 'NM'],
-        ['New York', 'NY'],
-        ['North Carolina', 'NC'],
-        ['North Dakota', 'ND'],
-        ['Ohio', 'OH'],
-        ['Oklahoma', 'OK'],
-        ['Oregon', 'OR'],
-        ['Pennsylvania', 'PA'],
-        ['Rhode Island', 'RI'],
-        ['South Carolina', 'SC'],
-        ['South Dakota', 'SD'],
-        ['Tennessee', 'TN'],
-        ['Texas', 'TX'],
-        ['Utah', 'UT'],
-        ['Vermont', 'VT'],
-        ['Virginia', 'VA'],
-        ['Washington', 'WA'],
-        ['West Virginia', 'WV'],
-        ['Wisconsin', 'WI'],
-        ['Wyoming', 'WY'],
+      ['Arizona', 'AZ'],
+      ['Alabama', 'AL'],
+      ['Alaska', 'AK'],
+      ['Arkansas', 'AR'],
+      ['California', 'CA'],
+      ['Colorado', 'CO'],
+      ['Connecticut', 'CT'],
+      ['Delaware', 'DE'],
+      ['Florida', 'FL'],
+      ['Georgia', 'GA'],
+      ['Hawaii', 'HI'],
+      ['Idaho', 'ID'],
+      ['Illinois', 'IL'],
+      ['Indiana', 'IN'],
+      ['Iowa', 'IA'],
+      ['Kansas', 'KS'],
+      ['Kentucky', 'KY'],
+      ['Louisiana', 'LA'],
+      ['Maine', 'ME'],
+      ['Maryland', 'MD'],
+      ['Massachusetts', 'MA'],
+      ['Michigan', 'MI'],
+      ['Minnesota', 'MN'],
+      ['Mississippi', 'MS'],
+      ['Missouri', 'MO'],
+      ['Montana', 'MT'],
+      ['Nebraska', 'NE'],
+      ['Nevada', 'NV'],
+      ['New Hampshire', 'NH'],
+      ['New Jersey', 'NJ'],
+      ['New Mexico', 'NM'],
+      ['New York', 'NY'],
+      ['North Carolina', 'NC'],
+      ['North Dakota', 'ND'],
+      ['Ohio', 'OH'],
+      ['Oklahoma', 'OK'],
+      ['Oregon', 'OR'],
+      ['Pennsylvania', 'PA'],
+      ['Rhode Island', 'RI'],
+      ['South Carolina', 'SC'],
+      ['South Dakota', 'SD'],
+      ['Tennessee', 'TN'],
+      ['Texas', 'TX'],
+      ['Utah', 'UT'],
+      ['Vermont', 'VT'],
+      ['Virginia', 'VA'],
+      ['Washington', 'WA'],
+      ['West Virginia', 'WV'],
+      ['Wisconsin', 'WI'],
+      ['Wyoming', 'WY'],
     ];
 
     if (to == 'abbr'){
-        input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-        for(i = 0; i < states.length; i++){
-            if(states[i][0] == input){
-                return(states[i][1]);
-            }
-        }    
+      input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      for(i = 0; i < states.length; i++){
+        if(states[i][0] == input){
+          return(states[i][1]);
+        }
+      }    
     } else if (to == 'name'){
-        input = input.toUpperCase();
-        for(i = 0; i < states.length; i++){
-            if(states[i][1] == input){
-                return(states[i][0]);
-            }
-        }    
+      input = input.toUpperCase();
+      for(i = 0; i < states.length; i++){
+        if(states[i][1] == input){
+          return(states[i][0]);
+        }
+      }    
     }
-}
+  }
 
   // Constructs new generic elements from a message payload
   function buildMessageDomElements(newPayload, isUser) {
