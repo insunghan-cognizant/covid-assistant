@@ -42,9 +42,10 @@ This is a project that created a chat bot in order to bring together all of the 
 
 * How busy a target business is to determine risk of contact with others
 * Open up dialog choices, fuzzier matching
-* Influenza info, vaccination, remedies, symptom checker, symptom reducers
+* Influenza info, vaccination, remedies, symptom reducers
 * Common cold info similar to above
 * Functionality for chatbot if you want to share. Store text locally? Add an email functionality?
+* NodeRED voice functionality
 
 ## Demo video
 
