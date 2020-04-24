@@ -363,24 +363,29 @@ var ConversationPanel = (function () {
 
   // convert response text (json formatted or plain) to plain text
   function getTextToDisplay(text) {
-    console.log("start getTextToDisplay")
     var parsedObj;
     var textToDisplay = '';
 
     try {
       parsedObj = JSON.parse(text);
    
+      var name = '';
+      var phone = '';
+      var address = '';
+      var city = '';
+      var state = '';
+      var postalCode = '';
+      
       if( parsedObj.type == "testing-location") {
       //use the lenght of the summary array to make each address display so that the google links can be created
         for (var i = 0; i < parsedObj.summary.length; i++) {
-          var name = parsedObj.summary[i].name;
-          var phone = '';
-          var address = '';
-          var city = '';
-          var state = '';
-          var postalCode = '';
-          var description = '';
-
+          if( parsedObj.summary[i].name == "No Organizations Yet" ) {
+            textToDisplay = 'No testing locations yet' + '<hr/>'
+            break;
+          }
+          
+          name = parsedObj.summary[i].name;
+         
           if( parsedObj.summary[i].phones.length > 0 && parsedObj.summary[i].phones[0].hasOwnProperty('number')) {
             phone = parsedObj.summary[i].phones[0].number;
           }
@@ -389,7 +394,7 @@ var ConversationPanel = (function () {
             city = parsedObj.summary[i].physical_address[0].city;
             state = parsedObj.summary[i].physical_address[0].state_province;
             postalCode = parsedObj.summary[i].physical_address[0].postal_code;
-            description = parsedObj.summary[i].description;
+            // description = parsedObj.summary[i].description;
           }
           //.replace removes spaces from the names so that they can be used on the url
           var term = address.replace(/ /g, '') + city.replace(/ /g, '') + state.replace(/ /g, '') + postalCode;
@@ -401,6 +406,14 @@ var ConversationPanel = (function () {
                    + '<hr/>'
 
         } 
+        var link = 'https://covid-19-apis.postman.com/covid-19-testing-locations/';
+        if( state.length > 0 ) {
+          link = 'https://covid-19-apis.postman.com/covid-19-testing-locations/'+ abbrState(state, 'name').replace(/\s+/g, '-').toLowerCase() + '/';
+        } 
+        
+        textToDisplay += '<a href=\''  + link + '\' target=\'_blank\'>Link to source</a>';
+        
+
       } else if( parsedObj.type == "cases-coordinate") {
         for (var i = 0; i < parsedObj.summary.data.length; i++) {
           var county = parsedObj.summary.data[i].name
