@@ -49,7 +49,7 @@ This is a project that created a chat bot in order to bring together all of the 
 
 ## Demo video
 
-[![Watch the video]()]()
+https://youtu.be/VdldbhIdPrs
 
 ## The architecture
 
@@ -69,7 +69,7 @@ This is a project that created a chat bot in order to bring together all of the 
 
 ## Running the application locally
 
-1. Clone the repository, https://github.com/insunghan-cognizant/covid-simple
+1. Clone the repository, https://github.com/insunghan-cognizant/covid-assistant
 
 1. Install the dependencies:
 
