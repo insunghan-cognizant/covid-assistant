@@ -35,7 +35,7 @@ This is a project that created a chat bot in order to bring together all of the 
 * CDC Frequently asked questions
 * Nearby cases
 * Cases for a specific zip code
-* Nearby testing locations
+* Testing locations by state
 
 ### Chat-bot of Tomorrow:
 
