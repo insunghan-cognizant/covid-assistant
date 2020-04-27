@@ -32,11 +32,10 @@ This is a project that created a chat bot in order to bring together all of the 
 
 * Symptom checker
 * Covid news from Watson discover
-* DC Frequently asked questions
+* CDC Frequently asked questions
 * Nearby cases
 * Cases for a specific zip code
 * Nearby testing locations
-* Telelheath/doctor on demand (is an app)
 
 ### Chat-bot of Tomorrow:
 
@@ -46,6 +45,7 @@ This is a project that created a chat bot in order to bring together all of the 
 * Common cold info similar to above
 * Functionality for chatbot if you want to share. Store text locally? Add an email functionality?
 * NodeRED voice functionality
+* Telehealth suggestions
 
 ## Demo video
 
