@@ -216,6 +216,12 @@
     border-radius: 50px;
     margin: 0.2rem;
   }
+
+  .article-title {
+    font-style: italic;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
   
   .stateSearch:hover {
     background-color: #45a296;
